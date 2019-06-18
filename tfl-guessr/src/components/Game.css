@@ -1,0 +1,6 @@
+.gameWindow{
+    display: flex;
+    
+    margin: 0 15%;
+    flex-wrap: wrap;
+}

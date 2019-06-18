@@ -1,0 +1,16 @@
+.resultItem{
+    height: 1rem;
+    width: 20%;
+    margin: 1rem 3rem;
+    border: 2px solid white;
+    padding: 0.35rem;
+}
+
+.resultItem-wrong{
+    background-color: #2D3039;
+}
+
+
+.resultItem-correct{
+    background-color: #E7f6DC;
+}
