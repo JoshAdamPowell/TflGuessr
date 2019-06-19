@@ -6,11 +6,15 @@
     padding: 0.35rem;
 }
 
-.resultItem-wrong{
+.resultItem-unanswered{
     background-color: #2D3039;
 }
 
+.resultItem-incorrect{
+    background-color: red;
+    color: white;
+}
 
 .resultItem-correct{
-    background-color: #E7f6DC;
+    background-color: green;
 }

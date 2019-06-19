@@ -14,8 +14,6 @@ export default class GuessBox extends React.Component{
         }
     }
 
-
-
     render(){
         return(
             <input type="text" className="guessBox" onChange={() => this.handleChange()} ref={this.input}></input>

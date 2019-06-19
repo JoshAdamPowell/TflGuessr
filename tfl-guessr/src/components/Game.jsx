@@ -1,7 +1,9 @@
 import React from 'react';
 import Result from './Result';
 import GuessBox from './GuessBox';
-import answers from '../resources/answers.json'
+import GiveUpButton from './GiveUpButton';
+import answers from '../resources/answers.json';
+import Percentage from './percentage';
 import './Game.css';
 
 export default class Game extends React.Component{
@@ -11,46 +13,65 @@ export default class Game extends React.Component{
             return {
             value: answer,
             correct: false,
+            showAnswer: false,
             };
         })
-        console.log(answers);
         this.state = {
-            results: results
+            results: results,
+            score: 0,
         };
     }
 
-    handleGuess(guess){
-        console.log(guess);
-        let changed = false;
+
+
+    giveUp(){
         const {results} = this.state;
         for(let result of results){
+            if (!result.correct){
+                result.showAnswer = true;
+            }
+        }
+        this.setState({results});
+    }
+
+    handleGuess(guess){
+        let changed = false;
+        let {results, score} = this.state;
+        for(let result of results){
             if (result.value.toLowerCase() === guess.toLowerCase()){
-                console.log('CORRECT!');
                 result.correct = true;
+                result.showAnswer = true;
                 changed = true;
                 break;
             }
         }
         if (changed){
-            this.setState({results});
+            score = score+1;
+            this.setState({results, score});
             return true;
         }
     }
 
     generateResults(){
-        return this.state.results.map(result => <Result resultText={result.value} answered={result.correct}></Result>)
+        return this.state.results.map(result => <Result 
+            resultText={result.value} 
+            correct={result.correct} 
+            showAnswer={result.showAnswer}
+            key={result.value}></Result>)
     }
 
-
     render(){
+
         return(
             <>
             <GuessBox onChange={(guess) => this.handleGuess(guess)}></GuessBox>
-            <div className="gameWindow">
+            <GiveUpButton onClick={() => this.giveUp()}></GiveUpButton>
+            <Percentage score={this.state.score}></Percentage>
+            <div className="gameWindow" id='gameWindow'>
                 {this.generateResults()}
-                </div>
-                
+            </div>
             </>
+            
         )
     }
 }

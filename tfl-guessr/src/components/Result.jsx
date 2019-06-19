@@ -6,11 +6,22 @@ export default class Result extends React.Component{
         super(props)
     }
 
+    getStyle(){
+        const {showAnswer, correct} = this.props;
+        if (!showAnswer){
+            return 'resultItem-unanswered'
+        }
+        if (correct){
+            return 'resultItem-correct'
+        }
+        return 'resultItem-incorrect'
+    }
+
     render(){
-        const {answered, resultText} = this.props;
+        const {showAnswer, resultText} = this.props;
         return (
-            <div className={`resultItem ${answered ? 'resultItem-correct' : 'resultItem-wrong'}`}>
-                {answered && resultText}
+            <div className={`resultItem ${this.getStyle()}`}>
+                {showAnswer && resultText}
             </div>
         )
     }
